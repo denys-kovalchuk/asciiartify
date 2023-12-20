@@ -13,23 +13,26 @@
    - **Path:** helm
    - **Cluster URL:** [https://kubernetes.default.svc](https://kubernetes.default.svc/)
    - **Namespace:** demo
-3. Click `CREATE`
+  
+   ![1.png](../img/1.png)
+   
+4. Click `CREATE`
 
    As a result, the added application will be displayed on the panel:
 
-   ![Screenshot-from-2023-11-28 18-26-43.png](../assets/Screenshot-from-2023-11-28_18-26-43.png)
+   ![2.png](../img/2.png)
 
-4. Review the details of the application by clicking on the block **Demo.**
+5. Review the details of the application by clicking on the block **Demo.**
 
-   ![Screenshot-from-2023-11-28 18-43-03.png](../assets/Screenshot-from-2023-11-28_18-43-03.png)
+   ![3.png](../img/3.png)
 
-5. ArgoCD application has been created, but not yet deployed. Deploy it by performing the first synchronization by clicking the `Sync` button and selecting all components from the list in this case.
+6. ArgoCD application has been created, but not yet deployed. Deploy it by performing the first synchronization by clicking the `Sync` button and selecting all components from the list in this case.
 
-   ![Screenshot-from-2023-11-28 19-05-46.png](../assets//Screenshot-from-2023-11-28_19-05-46.png)
+   ![4.png](../img/4.png)
 
    The statuses will change to **Healthy**, **Syned**, **Sync OK**, this will mean that the project is fully deployed and the state of the source code matches the state in the repository.
 
-6. Test the application.
+7. Test the application.
 
    - Return the `NodePort` value and make sure that everything is synchronized.
    - Set up port-forwarding for `ambassador`
@@ -51,12 +54,9 @@
 
      Original:
 
-     ![img.jpg](../assets/img.jpg)
+     ![test.jpg](../img/test.jpg)
 
      Result:
 
-     ![Screenshot-from-2023-11-28 22-06-08.png](../assets/Screenshot-from-2023-11-28_22-06-08.png)
+     ![6.png](../img/6.png)
 
-   Demo:
-
-   [![asciicast](https://asciinema.org/a/wgiRhDrYWRGY0DlwWIdiUXJCF.svg)](https://asciinema.org/a/wgiRhDrYWRGY0DlwWIdiUXJCF)
