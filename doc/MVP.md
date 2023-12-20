@@ -45,7 +45,7 @@
    - Upload image
 
      ```bash
-     curl -F 'image=@img.jpg' localhost:8082/img/
+     curl -F 'image=@test.jpg' localhost:8082/img/
      ```
      The app transforms the image into ASCII art
 
