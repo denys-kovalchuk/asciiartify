@@ -1,50 +1,50 @@
 # AsciiArtify. Proof of Concept
 
-> Підготуємо та розгорнемо GitOps-систему ArgoCD на Kubernetes.
+> We will prepare and deploy the ArgoCD GitOps system on Kubernetes.
 
-1. Створемо кластер (для демонстраційних цілей вистачить single node кластеру)
+1. Let's create a cluster (for demonstration purposes, a single node of the cluster will be enough)
 
    ```bash
-   k3d cluster create agro
+   k3d cluster create argo
    ```
-2. Створемо окремий неймспейс під потреби ArgoCD
+2. Let's create a separate namespace for the needs of ArgoCD
 
    ```bash
    kubectl create namespace argocd
    ```
-3. Для зучності встановимо поточний контекст - `argocd`
+3. For convenience, let's set the current context - `argocd`
 
    ```bash
    kubectl config set-context --current --namespace=argocd
    ```
-4. Застосуємо інсталяційний YAML-маніфест файл в рамках неймспейсу `argocd`, тобто проінсталюємо ArgoCD
+4. We will apply the installation YAML-manifest file within the `argocd` namespace to install ArgoCD
 
    ```bash
    kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/core-install.yaml
    ```
-5. Перевіремо стан новостворених подів в неймспейсі `argocd` з оновленням інформації режимі реального часу. В данному випадку контейнери для `argocd` розподілені по окремим подам.
+5. Let's check the state of the newly created pods in the `argocd` namespace with real-time information updates. In this case, the containers for `argocd` are distributed on separate pods.
 
    ```bash
    kubectl get po -n argocd -w
    ```
-   У результаті відобразиться близько восьми подів/контейнерів.
-6. Отримаємо доступ до інтерфейсу ArgoCD.
+   As a result, about eight pods/containers will be displayed.
+6. Let's get access to the ArgoCD interface.
 
-   Типові варіанти:
+   Typical options:
 
-   - За допомогою сервісу з типом Load Balancer
+   - Using a service with a Load Balancer type
    - Port Forwarding
 
-   Скористаємось Port Forwarding
+   Let's use Port Forwarding
 
    ```bash
    kubectl port-forward svc/argocd-server -n argocd 8080:443&
    ```
-   Тобто для сервісу svc/argocd-server з неймспейсу agrocd налаштуємо переадресацію у фоні з локального порту 8080 на віддалений 443 в контейнері, на якому працює веб-сервер ArgoCD.
-7. Отримаємо пароль
+   For the svc/argocd-server service from the agrocd namespace, we will configure background forwarding from local port 8080 to remote port 443 in the container running the ArgoCD web server.
+7. Get the password
 
    ```bash
    kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}"|base64 -d;echo
    ```
-   Команда отримує файл сікрету, декодує пароль і виводить його в термінал.
-8. Отриманий пароль та логін `admin` вводимо в Web-інтерфейс ArgoCD за адресою `127.0.0.1:8080` . Погодимось з використанням самопідписаного сертифікату. Для Codespace потрібно додатково [зробити](https://docs.github.com/en/codespaces/developing-in-a-codespace/forwarding-ports-in-your-codespace#using-https-forwarding) додаткові дії по прокиданню https назовні.
+   The command receives the secret file, decodes the password and outputs it to the terminal.
+8. Enter the received password and `admin` login into the ArgoCD Web interface at the address `127.0.0.1:8080`. Agree to use a self-signed certificate.
