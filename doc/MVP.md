@@ -28,23 +28,8 @@
    ![Screenshot-from-2023-11-28 19-05-46.png](../assets//Screenshot-from-2023-11-28_19-05-46.png)
 
    The statuses will change to **Healthy**, **Syned**, **Sync OK**, this will mean that the project is fully deployed and the state of the source code matches the state in the repository.
-6. As the state of the project in the repository changes, ArgoCD will notice the difference and report that the application is out of sync.
 
-   Next, press the synchronization button again or set up automatic synchronization. Check this by editing the `helm/values.yaml` file in the repository, correcting the api-gateway type to `LoadBalancer`. Like this:
-
-   ```bash
-   api-gateway:
-     image:
-       tag: 0.51.2
-     service:
-       type: LoadBalancer
-   ```
-   Press `Refresh` button and see **OutOfSync** notification, ArgoCD tracked changes in the repository:
-
-   ![Screenshot-from-2023-11-28 20-12-43.png](../assets/Screenshot-from-2023-11-28_20-12-43.png)
-
-   If synchronize again, the state of the cluster will be updated according to the latest changes in the repository.
-7. Test the application.
+6. Test the application.
 
    - Return the `NodePort` value and make sure that everything is synchronized.
    - Set up port-forwarding for `ambassador`
